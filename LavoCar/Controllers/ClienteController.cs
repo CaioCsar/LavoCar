@@ -9,11 +9,9 @@ namespace LavoCar.Controllers
 {
     public class ClienteController : Controller
     {
-        // GET: ClienteController
-        public ActionResult Index()
-        {
-            return View();
-        }
+       
+        //INDEX
+        
 
         // GET: ClienteController/Details/5
         public ActionResult Details(int id)

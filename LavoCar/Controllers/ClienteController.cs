@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LavoCar.Conexao;
+using LavoCar.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,77 +12,138 @@ namespace LavoCar.Controllers
 {
     public class ClienteController : Controller
     {
-       
-        //INDEX
-        
 
-        // GET: ClienteController/Details/5
-        public ActionResult Details(int id)
+        //CONNECTION
+        private readonly IESContext _context;
+
+        public ClienteController(IESContext context)
+        {
+            this._context = context;
+        }
+
+        // INDEX
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Clientes.OrderBy(n => n.NomeCliente).ToListAsync());
+        }
+
+        // CREATE
+        public IActionResult Create()
         {
             return View();
         }
 
-        // GET: ClienteController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ClienteController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("NomeCliente, EndCliente, FoneCliente")] Cliente cliente)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(cliente);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            catch
+            catch (DbUpdateException)
             {
-                return View();
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
+            return View(cliente);
         }
 
-        // GET: ClienteController/Edit/5
-        public ActionResult Edit(int id)
+        // EDIT
+        public async Task<IActionResult> Edit(long? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            return View(cliente);
         }
 
-        // POST: ClienteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(long? id, [Bind("ClienteID, NomeCliente, EndCliente, FoneCliente ")] Cliente cliente)
         {
-            try
+            if (id != cliente.ClienteID)
             {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(cliente);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ClienteExists(cliente.ClienteID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(cliente);
         }
-
-        // GET: ClienteController/Delete/5
-        public ActionResult Delete(int id)
+        private bool ClienteExists(long? id)
         {
-            return View();
+            return _context.Clientes.Any(e => e.ClienteID == id);
         }
 
-        // POST: ClienteController/Delete/5
-        [HttpPost]
+        //DETAILS
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            return View(cliente);
+        }
+
+        //DELETE
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+            return View(cliente);
+        }
+
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(long? id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
+            _context.Clientes.Remove(cliente);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
+
+
+
     }
 }

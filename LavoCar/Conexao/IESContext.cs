@@ -1,4 +1,5 @@
-﻿using LavoCar.Models;
+﻿using LavoCar.Controllers;
+using LavoCar.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace LavoCar.Conexao
         }
 
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Carro> Carros { get; set; }
 
 
     }

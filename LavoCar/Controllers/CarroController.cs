@@ -23,7 +23,7 @@ namespace LavoCar.Controllers
         // INDEX
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Carros.Include(i=>i.Cliente).OrderBy(n => n.Modelo).ToListAsync());
+            return View(await _context.Carros.Include(i=>i.ClienteID).OrderBy(n => n.Modelo).ToListAsync());
         }
 
         // CREATE

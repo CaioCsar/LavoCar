@@ -17,8 +17,6 @@ namespace LavoCar.Conexao
 
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Carro> Carros { get; set; }
-
-
         public DbSet<Lavagem> Lavagens { get; set; }
 
     }

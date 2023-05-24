@@ -4,20 +4,40 @@ using LavoCar.Conexao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LavoCar.Migrations
 {
     [DbContext(typeof(IESContext))]
-    partial class IESContextModelSnapshot : ModelSnapshot
+    [Migration("20230524000705_ atualição do ID do Model")]
+    partial class atualiçãodoIDdoModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
+
+            modelBuilder.Entity("LavoCar.Controllers.Lavagem", b =>
+                {
+                    b.Property<long?>("LavID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("DataLav")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ValorLav")
+                        .HasColumnType("int");
+
+                    b.HasKey("LavID");
+
+                    b.ToTable("Lavagens");
+                });
 
             modelBuilder.Entity("LavoCar.Models.Cliente", b =>
                 {

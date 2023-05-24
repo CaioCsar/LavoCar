@@ -7,9 +7,9 @@ namespace LavoCar.Controllers
 {
     public class TipoLavagem
     {
-        public long? LavId { get; set; }
-        public DateTime DataLav { get; set; }
+        public long? TipoLavID { get; set; }
+        public string DescTipoLav { get; set; }
 
-        public int Valor { get; set; }
+        public int PrecoTipoLav { get; set; }
     }
 }

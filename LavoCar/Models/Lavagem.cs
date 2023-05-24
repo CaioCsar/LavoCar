@@ -13,5 +13,7 @@ namespace LavoCar.Controllers
         public DateTime DataLav { get; set; }
 
         public int ValorLav { get; set; }
+
+        public virtual ICollection<TipoLavagem> TipoLavagens { get; set; }
     }
 }

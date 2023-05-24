@@ -19,5 +19,7 @@ namespace LavoCar.Conexao
         public DbSet<Carro> Carros { get; set; }
         public DbSet<Lavagem> Lavagens { get; set; }
 
+        public DbSet<TipoLavagem> TipoLavagens { get; set; }
+
     }
 }

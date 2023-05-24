@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LavoCar.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,9 @@ namespace LavoCar.Controllers
         public string Modelo { get; set; }
 
         public string Marca { get; set; }
+
+        public long? ClienteID { get; set; }
+        public Cliente Cliente { get; set; }
 
     }
 }

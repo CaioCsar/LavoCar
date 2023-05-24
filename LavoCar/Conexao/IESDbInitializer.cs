@@ -1,4 +1,5 @@
-﻿using LavoCar.Models;
+﻿using LavoCar.Controllers;
+using LavoCar.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace LavoCar.Conexao
         public static void Initialize(IESContext context)
         {
             context.Database.EnsureCreated();
+
+            //CLIENTE
             if (context.Clientes.Any())
             {
                 return;
@@ -23,6 +26,22 @@ namespace LavoCar.Conexao
             foreach (Cliente d in cliente)
             {
                 context.Clientes.Add(d);
+            }
+            context.SaveChanges();
+
+            //CARRO
+            if (context.Carros.Any())
+            {
+                return;
+            }
+            var carro = new Carro[]
+            {
+                new Carro {Placa="AUC1234", Ano=2001, Marca="Fiat", Modelo="Uno Miller", ClienteID = 1},
+                new Carro {Placa="TOC1223", Ano=2011, Marca="Honda", Modelo="Nissan Fronties", ClienteID = 2}
+            };
+            foreach (Carro d in carro)
+            {
+                context.Carros.Add(d);
             }
             context.SaveChanges();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LavoCar.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,6 +23,6 @@ namespace LavoCar.Models
         [Display(Name = "Telefone" )]
         public string FoneCliente { get; set; }
 
-
+        public virtual ICollection<Carro> Carros { get; set; }
     }
 }

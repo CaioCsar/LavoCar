@@ -1,5 +1,7 @@
 ﻿using LavoCar.Conexao;
+using LavoCar.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,18 +23,21 @@ namespace LavoCar.Controllers
         // INDEX
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Carros.OrderBy(n => n.Modelo).ToListAsync());
+            return View(await _context.Carros.Include(i=>i.Cliente).OrderBy(n => n.Modelo).ToListAsync());
         }
 
         // CREATE
         public IActionResult Create()
         {
+            var cliente = _context.Clientes.OrderBy(i => i.NomeCliente).ToList();
+            cliente.Insert(0, new Cliente() { ClienteID = 0, NomeCliente = "Selecione um Cliente" });
+            ViewBag.Clientes = cliente;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Placa, Ano, Modelo, Marca")] Carro carro)
+        public async Task<IActionResult> Create([Bind("Placa, Ano, Modelo, Marca, ClienteID")] Carro carro)
         {
             try
             {
@@ -62,6 +67,7 @@ namespace LavoCar.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Clientes = new SelectList(_context.Clientes.OrderBy(b => b.NomeCliente), "ClienteID", "Nome");
             return View(carro);
         }
 
@@ -144,4 +150,4 @@ namespace LavoCar.Controllers
 
     }
 }
-}
+

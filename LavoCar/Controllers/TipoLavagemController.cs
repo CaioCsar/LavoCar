@@ -18,9 +18,9 @@ namespace LavoCar.Controllers {
         }
 
         // GET: TipoLavagemController
-        public async Task<IActionResult> Index() {
-            return View(await _context.TipoLavagens.Include(i=> i.Lavagem).OderBy(c=>c.DescTipoLav).ToListAsync());
-        }
+       /* public async Task<IActionResult> Index() {
+           // return View(await _context.TipoLavagens.Include(i=> i.Lavagem).OderBy(c=>c.DescTipoLav).ToListAsync());
+        }   Depois tem que consertar esse campo da função*/
 
         // GET: TipoLavagemController/Details/5
         public ActionResult Details(int id) {

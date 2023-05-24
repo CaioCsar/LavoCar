@@ -52,11 +52,26 @@ namespace LavoCar.Conexao
             }
             var tipolavagem = new TipoLavagem[]
             {
-                new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, LavID = 1},
-                new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, ClienteID = 2}
+              //  new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, LavID = 1},
+                //new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, ClienteID = 2}
             };
             foreach (TipoLavagem d in tipolavagem) {
                 context.TipoLavagens.Add(d);
+            }
+            context.SaveChanges();
+
+            //LAVAGEM
+            if (context.Lavagens.Any())
+            {
+                return;
+            }
+            var lavagem = new Lavagem[]
+            {
+              
+            };
+            foreach (Cliente d in cliente)
+            {
+                context.Clientes.Add(d);
             }
             context.SaveChanges();
         }

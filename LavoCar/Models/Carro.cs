@@ -15,7 +15,6 @@ namespace LavoCar.Controllers
         [MaxLength(7)]
         public string Placa { get; set; }
 
-        [MaxLength(4)]
         public int Ano { get; set; }
 
         public string Modelo { get; set; }

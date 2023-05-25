@@ -47,7 +47,7 @@ namespace LavoCar.Conexao
 
 
             //TIPO DE LAVAGEM
-            /*if (context.TipoLavagens.Any()) {
+            if (context.TipoLavagens.Any()) {
                 return;
             }
             var tipolavagem = new TipoLavagem[]
@@ -58,7 +58,7 @@ namespace LavoCar.Conexao
             foreach (TipoLavagem d in tipolavagem) {
                 context.TipoLavagens.Add(d);
             }
-            context.SaveChanges();*/
+            context.SaveChanges();
         }
 
     }

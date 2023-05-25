@@ -19,9 +19,10 @@ namespace LavoCar.Controllers {
 
         // GET: TipoLavagemController
 
-        public async Task<IActionResult> Index() {
-            return View(await _context.TipoLavagens.OrderBy(n=>n.DescTipoLav).ToListAsync());
-
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.TipoLavagens.OrderBy(n => n.DescTipoLav).ToListAsync());
+        }
         // GET: TipoLavagemController/Details/5
         public ActionResult Details(int id) {
             return View();

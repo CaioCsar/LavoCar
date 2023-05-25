@@ -33,23 +33,29 @@ namespace LavoCar.Controllers
 
         // GET: LavagemController/Create
         public ActionResult Create()
+         
         {
             return View();
         }
 
-        // POST: LavagemController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("DataLav, ValorLav")] Lavagem lavagem)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(lavagem);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            catch
+            catch (DbUpdateException)
             {
-                return View();
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
+            return View(lavagem);
         }
 
         // GET: LavagemController/Edit/5

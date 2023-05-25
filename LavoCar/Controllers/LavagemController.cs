@@ -40,7 +40,7 @@ namespace LavoCar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NomeCliente, EndCliente, FoneCliente")] Lavagem lavagem)
+        public async Task<IActionResult> Create([Bind("DataLav, ValorLav")] Lavagem lavagem)
         {
             try
             {

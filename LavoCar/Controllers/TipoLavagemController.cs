@@ -18,31 +18,43 @@ namespace LavoCar.Controllers {
         }
 
         // GET: TipoLavagemController
-        /*public async Task<IActionResult> Index() {
-            return View(await _context.TipoLavagens.Include(i=> i.Lavagem).OderBy(c=>c.DescTipoLav).ToListAsync());
-        }*/
-
+        public async Task<IActionResult> Index() {
+            return View(await _context.TipoLavagens.OrderBy(n=>n.DescTipoLav).ToListAsync());
+  
         // GET: TipoLavagemController/Details/5
         public ActionResult Details(int id) {
             return View();
         }
 
         // GET: TipoLavagemController/Create
-        public ActionResult Create() {
+        public IActionResult Create() {
             return View();
         }
 
         // POST: TipoLavagemController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection) {
+        public async Task<IActionResult> Create([Bind("DescTipoLav", "PrecoTipoLav")] TipoLavagem tipoLavagem) {
             try {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid) {
+                    _context.Add(tipoLavagem);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            catch {
-                return View();
+            catch (DbUpdateException) {
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
+                return View(tipoLavagem);
         }
+        
+
+        // GET: TipoLavagemController/Details/5
+        public ActionResult Details(int id) {
+            return View();
+        }
+
+
 
         // GET: TipoLavagemController/Edit/5
         public ActionResult Edit(int id) {

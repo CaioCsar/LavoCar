@@ -52,8 +52,8 @@ namespace LavoCar.Conexao
             }
             var tipolavagem = new TipoLavagem[]
             {
-                new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, LavID = 1},
-                new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, ClienteID = 2}
+                new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20},
+                new TipoLavagem {DescTipoLav= "Lavagem Simples com Cera", PrecoTipoLav=50}
             };
             foreach (TipoLavagem d in tipolavagem) {
                 context.TipoLavagens.Add(d);

@@ -23,7 +23,7 @@ namespace LavoCar.Controllers
         // INDEX
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Carros.Include(i=>i.ClienteID).OrderBy(n => n.Modelo).ToListAsync());
+            return View(await _context.Carros.Include(c => c.Cliente).OrderBy(n => n.Modelo).ToListAsync());
         }
 
         // CREATE
@@ -67,7 +67,7 @@ namespace LavoCar.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Clientes = new SelectList(_context.Clientes.OrderBy(b => b.NomeCliente), "ClienteID", "Nome");
+            ViewBag.Clientes = new SelectList(_context.Clientes.OrderBy(b => b.NomeCliente), "ClienteID", "NomeCliente");
             return View(carro);
         }
 
@@ -114,6 +114,7 @@ namespace LavoCar.Controllers
                 return NotFound();
             }
             var carro = await _context.Carros.SingleOrDefaultAsync(m => m.CarroID == id);
+            _context.Clientes.Where(i => carro.ClienteID == i.ClienteID).Load();
             if (carro == null)
             {
                 return NotFound();
@@ -129,6 +130,7 @@ namespace LavoCar.Controllers
                 return NotFound();
             }
             var carro = await _context.Carros.SingleOrDefaultAsync(m => m.CarroID == id);
+            _context.Clientes.Where(i => carro.ClienteID == i.ClienteID).Load();
             if (carro == null)
             {
                 return NotFound();

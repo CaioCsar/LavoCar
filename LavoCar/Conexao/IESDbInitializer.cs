@@ -36,8 +36,8 @@ namespace LavoCar.Conexao
             }
             var carro = new Carro[]
             {
-                new Carro {Placa="AUC1234", Ano=2001, Marca="Fiat", Modelo="Uno Miller", ClienteID = 1},
-                new Carro {Placa="TOC1223", Ano=2011, Marca="Honda", Modelo="Nissan Fronties", ClienteID = 2}
+                new Carro {Placa="AUC1234", Ano=2001, Marca="Fiat", Modelo="Uno Miller", ClienteID=01},
+                new Carro {Placa="TOC1223", Ano=2011, Marca="Honda", Modelo="Nissan Fronties", ClienteID=02}
             };
             foreach (Carro d in carro)
             {
@@ -52,12 +52,14 @@ namespace LavoCar.Conexao
             }
             var tipolavagem = new TipoLavagem[]
             {
-              //  new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, LavID = 1},
-                //new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20, ClienteID = 2}
+
+                new TipoLavagem {DescTipoLav= "Lavagem Simples", PrecoTipoLav=20},
+                new TipoLavagem {DescTipoLav= "Lavagem Simples com Cera", PrecoTipoLav=50}
             };
             foreach (TipoLavagem d in tipolavagem) {
                 context.TipoLavagens.Add(d);
             }
+
             context.SaveChanges();
 
             //LAVAGEM
@@ -74,6 +76,8 @@ namespace LavoCar.Conexao
                 context.Clientes.Add(d);
             }
             context.SaveChanges();
+
+
         }
 
     }

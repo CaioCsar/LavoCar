@@ -9,6 +9,7 @@ namespace LavoCar.Models
 {
     public class Cliente
     {
+        [Key]
         public long? ClienteID { get; set; }
 
         [Required]

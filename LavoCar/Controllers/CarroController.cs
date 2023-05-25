@@ -67,7 +67,7 @@ namespace LavoCar.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Clientes = new SelectList(_context.Clientes.OrderBy(b => b.NomeCliente), "ClienteID", "Nome");
+            ViewBag.Clientes = new SelectList(_context.Clientes.OrderBy(b => b.NomeCliente), "ClienteID", "NomeCliente");
             return View(carro);
         }
 

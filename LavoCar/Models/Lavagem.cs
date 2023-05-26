@@ -10,10 +10,15 @@ namespace LavoCar.Controllers
     {
         [Key]
         public long? LavID { get; set; }
+        
+        [Display(Name = "Data")]
         public DateTime DataLav { get; set; }
 
+        
+        
+        [Display(Name = "Valor")]
         public int ValorLav { get; set; }
-
+        
         public virtual ICollection<TipoLavagem> TipoLavagens { get; set; }
     }
 }

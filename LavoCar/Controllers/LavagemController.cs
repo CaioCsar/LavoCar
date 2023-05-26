@@ -26,9 +26,18 @@ namespace LavoCar.Controllers
         }
 
         // GET: LavagemController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> DetailsAsync(int id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            if (lavagem == null)
+            {
+                return NotFound();
+            }
+            return View(lavagem);
         }
 
         // GET: LavagemController/Create
@@ -61,6 +70,7 @@ namespace LavoCar.Controllers
         // GET: LavagemController/Edit/5
         public ActionResult Edit(int id)
         {
+       
             return View();
         }
 

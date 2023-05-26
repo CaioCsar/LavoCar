@@ -74,6 +74,25 @@ body {
     background-color:azure !important;
 }
 
+.logo {
+    width: 100%;
+    height: auto;
+}
+
 .ico{
     width: 30px;
+}
+
+.minilogo {
+    width: 50px;
+}
+
+.miniico{
+    width: 20px;
+}
+
+.carroSobre {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
 }

@@ -49,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.Cliente.NomeCliente)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CarroID">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.CarroID">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.CarroID">Remover</a>
+                <a asp-action="Edit" asp-route-id="@item.CarroID"><img class="ico" src="~/img/edit.webp" /></a> |
+                <a asp-action="Details" asp-route-id="@item.CarroID"><img class="ico" src="~/img/details.webp" /></a> |
+                <a asp-action="Delete" asp-route-id="@item.CarroID"><img class="ico" src="~/img/deletar.webp" /></a>
             </td>
         </tr>
 }

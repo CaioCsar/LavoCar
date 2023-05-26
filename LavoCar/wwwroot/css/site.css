@@ -70,6 +70,32 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-.body{
-    background-color:azure !important;
+body {
+    background: rgb(26,26,27);
+    background: linear-gradient(90deg, rgba(26,26,27,1) 0%, rgba(185,185,189,1) 48%, rgba(117,120,121,1) 89%);
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+}
+
+.ico {
+    width: 100%;
+    height: auto;
+    max-width: 30px;
+}
+
+.minilogo {
+    width: 50px;
+}
+
+.miniico{
+    width: 20px;
+}
+
+.carroSobre {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
 }

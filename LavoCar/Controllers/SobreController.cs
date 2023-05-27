@@ -11,7 +11,6 @@ namespace LavoCar.Controllers
 {
     public class SobreController : Controller
     {
-        private readonly ILogger<SobreController> _logger;
 
 
         public IActionResult Index()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LavoCar.Models.Infra
 {
-    public class Infra
+    public class AcessarViewModel
     {
         
             [Required]

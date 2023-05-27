@@ -18,14 +18,13 @@
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <div class="linkLogin">
-                        Olá @UserManager.GetUserName(User), seja bem-vindo(a) / @Html.ActionLink("Sair",
-"Infra", new { area = "" })
+                        Olá @UserManager.GetUserName(User), seja bem-vindo(a) / @Html.ActionLink("Logout", "Sair","Infra", new { area = "" })
                     </div>
                 }
                 else
                 {
-                    <a class="nav-item nav-link linkLogin"  asp-controller="Infra" asp-action="Acessar">
-                        <img src="~/img/userlogin.png" class="miniico logoIco"/>Login
+                    <a class="nav-item nav-link linkLogin" asp-controller="Infra" asp-action="Acessar">
+                        <img src="~/img/userlogin.png" class="miniico logoIco" />Login
                     </a>
                 }
             </div>
@@ -52,7 +51,10 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Lavagem" asp-action="Index"> <img class="miniico" src="~/img/lavagem.png" />Lavagem</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoLavagem" asp-action="Index"> <img class="miniico" src="~/img/tipoLavagem.png"/>Tipo de Lavagem</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoLavagem" asp-action="Index"> <img class="miniico" src="~/img/tipoLavagem.png" />Tipo de Lavagem</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Recibo" asp-action="Index"><img class="miniico" src="~/img/reciboICO.png" />Recibos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Sobre" asp-action="Index"><img class="miniico" src="~/img/sobre.png" />Sobre</a>

@@ -1,4 +1,8 @@
-﻿@model LavoCar.Models.Infra.Infra
+﻿@* COLETAR INFORMAÇÕES DO USUARIO PARA O LOGIN*@
+@inject Microsoft.AspNetCore.Identity.SignInManager<LavoCar.Models.Infra.UsuarioDaAplicacao> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<LavoCar.Models.Infra.UsuarioDaAplicacao> UserManager
+ 
+@model LavoCar.Models.Infra.AcessarViewModel
 
 @{
     Layout = "_Layout";

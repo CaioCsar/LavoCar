@@ -26,22 +26,24 @@ namespace LavoCar
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //s configurar nossa classe Startup para registrar o ASP.NET Core Identity e também receber o serviço por Injeção de Dependência(DI)
+            //services.AddControllersWithViews();
+
+            //configura a conexao para o acesso ao banco dados
+            services.AddDbContext<IESContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
+            services.AddMvc();
+
+            //Configurar nossa classe para solicitar o login do usuario para iniciar
             services.AddIdentity<UsuarioDaAplicacao, IdentityRole>()
- .AddEntityFrameworkStores<IESContext>()
- .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<IESContext>()
+                .AddDefaultTokenProviders();
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Infra/Acessar";
                 options.AccessDeniedPath = "/Infra/AcessoNegado";
             });
 
-
-            services.AddDbContext<IESContext>(options =>
- options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
-            services.AddMvc();
-
-            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +61,7 @@ namespace LavoCar
 
             app.UseRouting();
 
+            //implementar a chamada
             app.UseAuthentication();
 
             app.UseAuthorization();

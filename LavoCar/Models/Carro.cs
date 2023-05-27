@@ -24,5 +24,7 @@ namespace LavoCar.Controllers
         public long? ClienteID { get; set; }
         public Cliente Cliente { get; set; }
 
+        public virtual ICollection<Lavagem> Lavagens { get; set; }
+
     }
 }

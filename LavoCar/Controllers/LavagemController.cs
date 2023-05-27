@@ -26,7 +26,7 @@ namespace LavoCar.Controllers
         }
 
         // GET: LavagemController/Details/5
-        public async Task<ActionResult> DetailsAsync(int id)
+        public async Task<ActionResult> DetailsAsync(long? id)
         {
             if (id == null)
             {

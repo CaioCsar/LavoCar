@@ -4,14 +4,16 @@ using LavoCar.Conexao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LavoCar.Migrations
 {
     [DbContext(typeof(IESContext))]
-    partial class IESContextModelSnapshot : ModelSnapshot
+    [Migration("20230526234429_LoginEAutenticacao")]
+    partial class LoginEAutenticacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,9 +58,6 @@ namespace LavoCar.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<long?>("CarroID")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("DataLav")
                         .HasColumnType("datetime2");
 
@@ -66,8 +65,6 @@ namespace LavoCar.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("LavID");
-
-                    b.HasIndex("CarroID");
 
                     b.ToTable("Lavagens");
                 });
@@ -182,38 +179,6 @@ namespace LavoCar.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("LavoCar.Models.Recibo", b =>
-                {
-                    b.Property<long?>("ReciboID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<long?>("CarroID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ClienteID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("LavagemID")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("TipoLavagemID")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("ReciboID");
-
-                    b.HasIndex("CarroID");
-
-                    b.HasIndex("ClienteID");
-
-                    b.HasIndex("LavagemID");
-
-                    b.HasIndex("TipoLavagemID");
-
-                    b.ToTable("Recibos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -356,49 +321,11 @@ namespace LavoCar.Migrations
                     b.Navigation("Cliente");
                 });
 
-            modelBuilder.Entity("LavoCar.Controllers.Lavagem", b =>
-                {
-                    b.HasOne("LavoCar.Controllers.Carro", null)
-                        .WithMany("Lavagens")
-                        .HasForeignKey("CarroID");
-                });
-
             modelBuilder.Entity("LavoCar.Controllers.TipoLavagem", b =>
                 {
                     b.HasOne("LavoCar.Controllers.Lavagem", null)
                         .WithMany("TipoLavagens")
                         .HasForeignKey("LavagemLavID");
-                });
-
-            modelBuilder.Entity("LavoCar.Controllers.Carro", b =>
-                {
-                    b.Navigation("Lavagens");
-
-            modelBuilder.Entity("LavoCar.Models.Recibo", b =>
-                {
-                    b.HasOne("LavoCar.Controllers.Carro", "Carro")
-                        .WithMany()
-                        .HasForeignKey("CarroID");
-
-                    b.HasOne("LavoCar.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteID");
-
-                    b.HasOne("LavoCar.Controllers.Lavagem", "Lavagem")
-                        .WithMany()
-                        .HasForeignKey("LavagemID");
-
-                    b.HasOne("LavoCar.Controllers.TipoLavagem", "TipoLavagem")
-                        .WithMany()
-                        .HasForeignKey("TipoLavagemID");
-
-                    b.Navigation("Carro");
-
-                    b.Navigation("Cliente");
-
-                    b.Navigation("Lavagem");
-
-                    b.Navigation("TipoLavagem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

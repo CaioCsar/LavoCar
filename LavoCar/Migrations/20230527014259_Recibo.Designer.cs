@@ -4,14 +4,16 @@ using LavoCar.Conexao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LavoCar.Migrations
 {
     [DbContext(typeof(IESContext))]
-    partial class IESContextModelSnapshot : ModelSnapshot
+    [Migration("20230527014259_Recibo")]
+    partial class Recibo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,9 +58,6 @@ namespace LavoCar.Migrations
                         .HasColumnType("bigint")
                         .UseIdentityColumn();
 
-                    b.Property<long?>("CarroID")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime>("DataLav")
                         .HasColumnType("datetime2");
 
@@ -66,8 +65,6 @@ namespace LavoCar.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("LavID");
-
-                    b.HasIndex("CarroID");
 
                     b.ToTable("Lavagens");
                 });
@@ -356,23 +353,12 @@ namespace LavoCar.Migrations
                     b.Navigation("Cliente");
                 });
 
-            modelBuilder.Entity("LavoCar.Controllers.Lavagem", b =>
-                {
-                    b.HasOne("LavoCar.Controllers.Carro", null)
-                        .WithMany("Lavagens")
-                        .HasForeignKey("CarroID");
-                });
-
             modelBuilder.Entity("LavoCar.Controllers.TipoLavagem", b =>
                 {
                     b.HasOne("LavoCar.Controllers.Lavagem", null)
                         .WithMany("TipoLavagens")
                         .HasForeignKey("LavagemLavID");
                 });
-
-            modelBuilder.Entity("LavoCar.Controllers.Carro", b =>
-                {
-                    b.Navigation("Lavagens");
 
             modelBuilder.Entity("LavoCar.Models.Recibo", b =>
                 {

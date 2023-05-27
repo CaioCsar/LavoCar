@@ -1,5 +1,7 @@
 ﻿using LavoCar.Controllers;
 using LavoCar.Models;
+using LavoCar.Models.Infra;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LavoCar.Conexao
 {
-    public class IESContext : DbContext
+    public class IESContext : IdentityDbContext<UsuarioDaAplicacao>
     {
         public IESContext(DbContextOptions<IESContext> options) : base(options)
         {
@@ -18,7 +20,7 @@ namespace LavoCar.Conexao
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Carro> Carros { get; set; }
         public DbSet<Lavagem> Lavagens { get; set; }
-
+        public DbSet<Recibo> Recibos { get; set; }
         public DbSet<TipoLavagem> TipoLavagens { get; set; }
 
     }

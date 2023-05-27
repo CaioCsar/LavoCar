@@ -33,7 +33,7 @@
                 <span asp-validation-for="Marca" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ClienteID" class="control-label"></label>
+                <label asp-for="ClienteID" class="control-label">Nome do Cliente</label>
                 <select asp-for="ClienteID" class ="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "ClienteID", "NomeCliente"))"></select>
             </div>
             <div class="form-group">

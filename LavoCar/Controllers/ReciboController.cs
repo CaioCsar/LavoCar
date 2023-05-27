@@ -1,6 +1,7 @@
 ﻿using LavoCar.Conexao;
 using LavoCar.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace LavoCar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClienteID, CarroID, LavID, LavagemID")] Recibo recibo)
+        public async Task<IActionResult> Create([Bind("ClienteID, CarroID, LavID, TipoLavID, LavagemID")] Recibo recibo)
         {
             try
             {
@@ -70,6 +71,130 @@ namespace LavoCar.Controllers
                 ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
             return View(recibo);
+        }
+
+        // EDIT
+        public async Task<IActionResult> Edit(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var recibo = await _context.Recibos.SingleOrDefaultAsync(m => m.ReciboID == id);
+            if (recibo == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Clientes = new SelectList(_context.Clientes.OrderBy(b => b.NomeCliente), "ClienteID", "NomeCliente");
+            ViewBag.Carros = new SelectList(_context.Carros.OrderBy(b => b.Modelo), "CarroID", "Modelo");
+            ViewBag.Lavagens = new SelectList(_context.Lavagens.OrderBy(b => b.DataLav), "LavID", "DataLav");
+            ViewBag.TipoLavagens = new SelectList(_context.TipoLavagens.OrderBy(b => b.DescTipoLav), "TipoLavID", "DescTipoLav");
+            return View(recibo);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(long? id, [Bind("NomeCliente, Modelo, DataLav, DescTipoLav ")] Recibo recibo)
+        {
+            if (id != recibo.ReciboID)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(recibo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ReciboExists(recibo.ReciboID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(recibo);
+        }
+        private bool ReciboExists(long? id)
+        {
+            return _context.Recibos.Any(e => e.ReciboID == id);
+        }
+
+        //DETAILS
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var recibo = await _context.Recibos.SingleOrDefaultAsync(m => m.ReciboID == id);
+            _context.Recibos.Where(i => recibo.ReciboID == i.ReciboID).Load();
+
+            var carro = await _context.Carros.SingleOrDefaultAsync(m => m.CarroID == id);
+            _context.Carros.Where(i => recibo.CarroID == i.CarroID).Load();
+
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            _context.Lavagens.Where(i => recibo.LavagemID == i.LavID).Load();
+
+            var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
+            _context.Clientes.Where(i => recibo.ClienteID == i.ClienteID).Load();
+
+            var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
+            _context.TipoLavagens.Where(i => recibo.TipoLavagemID == i.TipoLavID).Load();
+
+
+            if (recibo == null)
+            {
+                return NotFound();
+            }
+            return View(recibo);
+        }
+
+        //DELETE
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+           var recibo = await _context.Recibos.SingleOrDefaultAsync(m => m.ReciboID == id);
+            _context.Recibos.Where(i => recibo.ReciboID == i.ReciboID).Load();
+
+            var carro = await _context.Carros.SingleOrDefaultAsync(m => m.CarroID == id);
+            _context.Carros.Where(i => recibo.CarroID == i.CarroID).Load();
+
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            _context.Lavagens.Where(i => recibo.LavagemID == i.LavID).Load();
+
+            var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
+            _context.Clientes.Where(i => recibo.ClienteID == i.ClienteID).Load();
+
+            var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
+            _context.TipoLavagens.Where(i => recibo.TipoLavagemID == i.TipoLavID).Load();
+            if (recibo == null)
+            {
+                return NotFound();
+            }
+            return View(recibo);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long? id)
+        {
+            var recibo = await _context.Recibos.SingleOrDefaultAsync(m => m.ReciboID == id);
+            _context.Recibos.Remove(recibo);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

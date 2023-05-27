@@ -10,8 +10,11 @@ namespace LavoCar.Controllers
     {
         [Key]
         public long? TipoLavID { get; set; }
+
+        [Display(Name ="Descrição")]
         public string DescTipoLav { get; set; }
 
+        [Display(Name = "Preço")]
         public int PrecoTipoLav { get; set; }
 
 

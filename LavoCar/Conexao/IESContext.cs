@@ -1,5 +1,7 @@
 ﻿using LavoCar.Controllers;
 using LavoCar.Models;
+using LavoCar.Models.Infra;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LavoCar.Conexao
 {
-    public class IESContext : DbContext
+    public class IESContext : IdentityDbContext<UsuarioDaAplicacao>
     {
         public IESContext(DbContextOptions<IESContext> options) : base(options)
         {

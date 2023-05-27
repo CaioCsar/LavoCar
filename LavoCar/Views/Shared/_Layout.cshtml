@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<LavoCar.Models.Infra.UsuarioDaAplicacao> SignInManager
+@inject Microsoft.AspNetCore.Identity.UserManager<LavoCar.Models.Infra.UsuarioDaAplicacao> UserManager
+
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
@@ -9,6 +12,25 @@
 </head>
 <body>
     <header>
+        <div class="row" style="text-align:right;">
+            <div class="col-6"></div>
+            <div class="col-6">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <div>
+                        Olá @UserManager.GetUserName(User), seja bem-vindo(a) / @Html.ActionLink("Logout", "Sair",
+"Infra", new { area = "" })
+                    </div>
+                }
+                else
+                {
+                    <a class="nav-item nav-link linkLogin"  asp-controller="Infra" asp-action="Acessar">
+                        <img src="~/img/userlogin.png" class="miniico logoIco"/>Login
+                    </a>
+                }
+            </div>
+        </div>
+
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LavoCar <img class="minilogo" src="~/img/logolavocar.png" /></a>
@@ -30,7 +52,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Lavagem" asp-action="Index"> <img class="miniico" src="~/img/lavagem.png" />Lavagem</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoLavagem" asp-action="Index">Tipo de Lavagem</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TipoLavagem" asp-action="Index"> <img class="miniico" src="~/img/tipoLavagem.png"/>Tipo de Lavagem</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Sobre" asp-action="Index"><img class="miniico" src="~/img/sobre.png" />Sobre</a>

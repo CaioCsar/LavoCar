@@ -1,6 +1,8 @@
 using LavoCar.Conexao;
+using LavoCar.Models.Infra;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,17 @@ namespace LavoCar
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //s configurar nossa classe Startup para registrar o ASP.NET Core Identity e também receber o serviço por Injeção de Dependência(DI)
+            services.AddIdentity<UsuarioDaAplicacao, IdentityRole>()
+ .AddEntityFrameworkStores<IESContext>()
+ .AddDefaultTokenProviders();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Infra/Acessar";
+                options.AccessDeniedPath = "/Infra/AcessoNegado";
+            });
+
+
             services.AddDbContext<IESContext>(options =>
  options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
             services.AddMvc();
@@ -45,6 +58,8 @@ namespace LavoCar
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

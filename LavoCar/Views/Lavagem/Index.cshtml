@@ -32,10 +32,12 @@
                 @Html.DisplayFor(modelItem => item.ValorLav)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.LavID"><img class="ico" src="~/img/edit.webp" /></a> |
+<a asp-action="Edit" asp-route-id="@item.LavID"><img class="ico" src="~/img/edit.webp" /></a> |
                 <a asp-action="Details" asp-route-id="@item.LavID"><img class="ico" src="~/img/details.webp" /></a> |
                 <a asp-action="Delete" asp-route-id="@item.LavID"><img class="ico" src="~/img/deletar.webp" /></a>
+
                 
+
             </td>
         </tr>
 }

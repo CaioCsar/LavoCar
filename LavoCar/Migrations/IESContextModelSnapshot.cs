@@ -374,94 +374,95 @@ namespace LavoCar.Migrations
                 {
                     b.Navigation("Lavagens");
 
-            modelBuilder.Entity("LavoCar.Models.Recibo", b =>
-                {
-                    b.HasOne("LavoCar.Controllers.Carro", "Carro")
-                        .WithMany()
-                        .HasForeignKey("CarroID");
+                    modelBuilder.Entity("LavoCar.Models.Recibo", b =>
+                        {
+                            b.HasOne("LavoCar.Controllers.Carro", "Carro")
+                                .WithMany()
+                                .HasForeignKey("CarroID");
 
-                    b.HasOne("LavoCar.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteID");
+                            b.HasOne("LavoCar.Models.Cliente", "Cliente")
+                                .WithMany()
+                                .HasForeignKey("ClienteID");
 
-                    b.HasOne("LavoCar.Controllers.Lavagem", "Lavagem")
-                        .WithMany()
-                        .HasForeignKey("LavagemID");
+                            b.HasOne("LavoCar.Controllers.Lavagem", "Lavagem")
+                                .WithMany()
+                                .HasForeignKey("LavagemID");
 
-                    b.HasOne("LavoCar.Controllers.TipoLavagem", "TipoLavagem")
-                        .WithMany()
-                        .HasForeignKey("TipoLavagemID");
+                            b.HasOne("LavoCar.Controllers.TipoLavagem", "TipoLavagem")
+                                .WithMany()
+                                .HasForeignKey("TipoLavagemID");
 
-                    b.Navigation("Carro");
+                            b.Navigation("Carro");
 
-                    b.Navigation("Cliente");
+                            b.Navigation("Cliente");
 
-                    b.Navigation("Lavagem");
+                            b.Navigation("Lavagem");
 
-                    b.Navigation("TipoLavagem");
-                });
+                            b.Navigation("TipoLavagem");
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                        {
+                            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                                .WithMany()
+                                .HasForeignKey("RoleId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                        {
+                            b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                        {
+                            b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                        {
+                            b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                                .WithMany()
+                                .HasForeignKey("RoleId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
 
-                    b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                            b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                        {
+                            b.HasOne("LavoCar.Models.Infra.UsuarioDaAplicacao", null)
+                                .WithMany()
+                                .HasForeignKey("UserId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
-            modelBuilder.Entity("LavoCar.Controllers.Lavagem", b =>
-                {
-                    b.Navigation("TipoLavagens");
-                });
+                    modelBuilder.Entity("LavoCar.Controllers.Lavagem", b =>
+                        {
+                            b.Navigation("TipoLavagens");
+                        });
 
-            modelBuilder.Entity("LavoCar.Models.Cliente", b =>
-                {
-                    b.Navigation("Carros");
-                });
+                    modelBuilder.Entity("LavoCar.Models.Cliente", b =>
+                        {
+                            b.Navigation("Carros");
+                        });
 #pragma warning restore 612, 618
+                });
         }
     }
 }

@@ -240,6 +240,6 @@ a:hover{
     }
 }
 
-.div>imprimir{
-   text-align: right !important;
+.imprimir {
+    margin-left: 50%;
 }

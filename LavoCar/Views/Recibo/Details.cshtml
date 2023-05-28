@@ -17,7 +17,7 @@
             </div>
 
             <div class="pull-right receipt-section">
-                <span class="text-large receipt-label">Valor: R$</span>
+                <span class="text-large receipt-label">R$</span>
                 <span class="text-large">@Html.DisplayFor(model => model.Lavagem.ValorLav)</span>
             </div>
         </div>
@@ -33,23 +33,13 @@
             <span> @Html.DisplayFor(model => model.Carro.Modelo)</span>
         </div>
 
-        <div class="receipt-section pull-left">
-            <span class="receipt-label">Cod. Veículo:  </span>
-            <span> 0 @Html.DisplayFor(model => model.Carro.CarroID)</span>
-        </div>
-
         <div class="receipt-section">
             <span class="receipt-label">Data de Serviço: </span>
-            <span> @Html.DisplayFor(model => model.Lavagem.ValorLav)</span>
-        </div>
-
-        <div class="receipt-section">
-            <span class="receipt-label">Desc. de Serviço: </span>
-            <span> @Html.DisplayFor(model => model.TipoLavagem.DescTipoLav)</span>
+            <span> @Html.DisplayFor(model => model.Lavagem.DataLav)</span>
         </div>
 
         <div class="receipt-section alinharmeio">
-            <p>Recebi de @Html.DisplayFor(model => model.Cliente.NomeCliente) a importância de R$ @Html.DisplayFor(model => model.Lavagem.ValorLav) reais</p>
+            <p>Recebi de LavoCar a importância de R$ @Html.DisplayFor(model => model.Lavagem.ValorLav) reais</p>
             <p class="antesDalinha ">Referente a meus serviços profissionais</p>
         </div>
 
@@ -61,9 +51,10 @@
         <div class="assinaturas">
             <div class="receipt-signature col-xs-6">
                 <p class="receipt-line"></p>
-                <p>Lavo Car CNPJ: 22.254.225/0001-00</p>
-                <p>Rua Edson , 356 - Jd. das Cerejeiras</p>
-                <p>Aracaju - SE - 09889-352</p>
+                <p>Lavo Car</p>
+                <p>22.254.455/0001-00</p>
+                <p>Rua Blablabla, 3456 - Jd. das Cerejeiras</p>
+                <p>Aracaju - SE - 09889-349</p>
             </div>
 
             <div class="receipt-signature col-xs-6">
@@ -73,7 +64,7 @@
         </div>
     </div>
 
-    
+    <!--
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -101,7 +92,7 @@
             @Html.DisplayFor(model => model.TipoLavagem.DescTipoLav)
         </dd>
     </dl>
-       
+        -->
 </div>
 <div>
     <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.ReciboID">Editar</a> |

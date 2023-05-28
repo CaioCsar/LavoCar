@@ -18,10 +18,10 @@ namespace LavoCar.Models
         public long? CarroID { get; set; }
         public Carro Carro { get; set; }
 
-        public long? LavID { get; set; }
+        public long? LavagemID { get; set; }
         public Lavagem Lavagem { get; set; }
 
-        public long? TipoLavID { get; set; }
+        public long? TipoLavagemID { get; set; }
         public TipoLavagem TipoLavagem { get; set; }
     }
 }

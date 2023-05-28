@@ -55,7 +55,7 @@ namespace LavoCar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClienteID, CarroID, LavID, TipoLavID, LavID")] Recibo recibo)
+        public async Task<IActionResult> Create([Bind("ClienteID, CarroID, LavID, TipoLavID, LavagemID")] Recibo recibo)
         {
             try
             {
@@ -142,13 +142,13 @@ namespace LavoCar.Controllers
             _context.Carros.Where(i => recibo.CarroID == i.CarroID).Load();
 
             var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
-            _context.Lavagens.Where(i => recibo.LavID == i.LavID).Load();
+            _context.Lavagens.Where(i => recibo.LavagemID == i.LavID).Load();
 
             var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
             _context.Clientes.Where(i => recibo.ClienteID == i.ClienteID).Load();
 
             var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
-            _context.TipoLavagens.Where(i => recibo.TipoLavID == i.TipoLavID).Load();
+            _context.TipoLavagens.Where(i => recibo.TipoLavagemID == i.TipoLavID).Load();
 
 
             if (recibo == null)
@@ -172,13 +172,13 @@ namespace LavoCar.Controllers
             _context.Carros.Where(i => recibo.CarroID == i.CarroID).Load();
 
             var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
-            _context.Lavagens.Where(i => recibo.LavID == i.LavID).Load();
+            _context.Lavagens.Where(i => recibo.LavagemID == i.LavID).Load();
 
             var cliente = await _context.Clientes.SingleOrDefaultAsync(m => m.ClienteID == id);
             _context.Clientes.Where(i => recibo.ClienteID == i.ClienteID).Load();
 
             var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
-            _context.TipoLavagens.Where(i => recibo.TipoLavID == i.TipoLavID).Load();
+            _context.TipoLavagens.Where(i => recibo.TipoLavagemID == i.TipoLavID).Load();
             if (recibo == null)
             {
                 return NotFound();

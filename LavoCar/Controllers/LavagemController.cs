@@ -1,7 +1,6 @@
 ﻿using LavoCar.Conexao;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -26,12 +25,25 @@ namespace LavoCar.Controllers
             return View(await _context.Lavagens.OrderBy(c => c.DataLav).ToListAsync());
         }
 
+        // GET: LavagemController/Details/5
+        public async Task<ActionResult> DetailsAsync(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            if (lavagem == null)
+            {
+                return NotFound();
+            }
+            return View(lavagem);
+        }
 
         // GET: LavagemController/Create
         public ActionResult Create()
          
         {
-            
             return View();
         }
 
@@ -56,95 +68,46 @@ namespace LavoCar.Controllers
         }
 
         // GET: LavagemController/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
-            if (lavagem == null)
-            {
-                return NotFound();
-            }
-            return View(lavagem);
+       
+            return View();
         }
 
-
+        // POST: LavagemController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("LavID, DataLav, ValorLav")] Lavagem lavagem)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
-            if (id != lavagem.LavID)
+            try
             {
-                return NotFound();
-            }
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(lavagem);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!LavagemExists(lavagem.LavID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
                 return RedirectToAction(nameof(Index));
             }
-            return View(lavagem);
-        }
-        private bool LavagemExists(long? id)
-        {
-            return _context.Lavagens.Any(e => e.LavID == id);
-        }
-
-        //DETAILS
-        public async Task<IActionResult> Details(long? id)
-        {
-            if (id == null)
+            catch
             {
-                return NotFound();
+                return View();
             }
-            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
-            if (lavagem == null)
-            {
-                return NotFound();
-            }
-            return View(lavagem);
         }
 
-        //DELETE
-        public async Task<IActionResult> Delete(long? id)
+        // GET: LavagemController/Delete/5
+        public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
-            if (lavagem == null)
-            {
-                return NotFound();
-            }
-            return View(lavagem);
+            return View();
         }
 
-        [HttpPost, ActionName("Delete")]
+        // POST: LavagemController/Delete/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long? id)
+        public ActionResult Delete(int id, IFormCollection collection)
         {
-            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
-            _context.Lavagens.Remove(lavagem);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
-
     }
 }

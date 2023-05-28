@@ -1,17 +1,19 @@
-﻿using LavoCar.Conexao;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using LavoCar.Conexao;
+using LavoCar.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LavoCar.Controllers
 {
     public class TipoLavagemController : Controller
     {
+
         //CONNECTION
         private readonly IESContext _context;
 

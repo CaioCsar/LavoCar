@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LavoCar.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,8 @@ namespace LavoCar.Controllers
         public int ValorLav { get; set; }
         
         public virtual ICollection<TipoLavagem> TipoLavagens { get; set; }
+
+        public long? CarroID { get; set; }
+        public Carro Carro { get; set; }
     }
 }

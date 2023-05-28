@@ -62,7 +62,7 @@ namespace LavoCar.Conexao
             context.SaveChanges();
 
             //LAVAGEM
-            if (context.Lavagens.Any())
+            /*if (context.Lavagens.Any())
             {
                 return;
             }
@@ -74,7 +74,7 @@ namespace LavoCar.Conexao
                 context.Lavagens.Add(d);
             }
             context.SaveChanges();
-
+            */
 
         }
 

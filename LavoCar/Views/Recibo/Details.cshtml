@@ -40,7 +40,7 @@
 
         <div class="receipt-section">
             <span class="receipt-label">Data de Serviço: </span>
-            <span> @Html.DisplayFor(model => model.Lavagem.DataLav)</span>
+            <span> @Html.DisplayFor(model => model.Lavagem.ValorLav)</span>
         </div>
 
         <div class="receipt-section">
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <!--
+    
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -101,7 +101,7 @@
             @Html.DisplayFor(model => model.TipoLavagem.DescTipoLav)
         </dd>
     </dl>
-        -->
+       
 </div>
 <div>
     <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.ReciboID">Editar</a> |

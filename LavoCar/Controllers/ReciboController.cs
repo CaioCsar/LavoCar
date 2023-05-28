@@ -94,7 +94,7 @@ namespace LavoCar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("NomeCliente, Modelo, DataLav, DescTipoLav ")] Recibo recibo)
+        public async Task<IActionResult> Edit(long? id, [Bind("NomeCliente, Modelo, DataLav, DescTipoLav, ReciboID ")] Recibo recibo)
         {
             if (id != recibo.ReciboID)
             {

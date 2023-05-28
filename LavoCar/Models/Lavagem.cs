@@ -14,8 +14,6 @@ namespace LavoCar.Controllers
         [Display(Name = "Data")]
         public DateTime DataLav { get; set; }
 
-        
-        
         [Display(Name = "Valor")]
         public int ValorLav { get; set; }
         

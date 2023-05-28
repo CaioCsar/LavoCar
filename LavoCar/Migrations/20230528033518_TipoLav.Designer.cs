@@ -4,14 +4,16 @@ using LavoCar.Conexao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LavoCar.Migrations
 {
     [DbContext(typeof(IESContext))]
-    partial class IESContextModelSnapshot : ModelSnapshot
+    [Migration("20230528033518_TipoLav")]
+    partial class TipoLav
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,7 +87,7 @@ namespace LavoCar.Migrations
                     b.Property<long?>("LavID")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("LavID")
+                    b.Property<long?>("LavagemLavID")
                         .HasColumnType("bigint");
 
                     b.Property<int>("PrecoTipoLav")
@@ -93,7 +95,7 @@ namespace LavoCar.Migrations
 
                     b.HasKey("TipoLavID");
 
-                    b.HasIndex("LavID");
+                    b.HasIndex("LavagemLavID");
 
                     b.ToTable("TipoLavagens");
                 });
@@ -370,7 +372,7 @@ namespace LavoCar.Migrations
                 {
                     b.HasOne("LavoCar.Controllers.Lavagem", "Lavagem")
                         .WithMany("TipoLavagens")
-                        .HasForeignKey("LavID");
+                        .HasForeignKey("LavagemLavID");
 
                     b.Navigation("Lavagem");
                 });

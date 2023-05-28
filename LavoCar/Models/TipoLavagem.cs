@@ -17,6 +17,8 @@ namespace LavoCar.Controllers
         [Display(Name = "Preço")]
         public int PrecoTipoLav { get; set; }
 
+        public long? LavID { get; set; }
+        public Lavagem Lavagem { get; set; }
 
     }
 }

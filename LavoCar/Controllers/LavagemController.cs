@@ -1,6 +1,7 @@
 ﻿using LavoCar.Conexao;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,28 +23,15 @@ namespace LavoCar.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Lavagens.OrderBy(c => c.DataLav).ToListAsync());
+            return View(await _context.Lavagens.Include(t => t.TipoLavagens).OrderBy(c => c.DataLav).ToListAsync());
         }
 
-        // GET: LavagemController/Details/5
-        public async Task<ActionResult> DetailsAsync(long? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
-            if (lavagem == null)
-            {
-                return NotFound();
-            }
-            return View(lavagem);
-        }
 
         // GET: LavagemController/Create
         public ActionResult Create()
          
         {
+            
             return View();
         }
 
@@ -68,46 +56,95 @@ namespace LavoCar.Controllers
         }
 
         // GET: LavagemController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(long? id)
         {
-       
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            if (lavagem == null)
+            {
+                return NotFound();
+            }
+            return View(lavagem);
         }
 
-        // POST: LavagemController/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(long? id, [Bind("LavID, DataLav, ValorLav")] Lavagem lavagem)
         {
-            try
+            if (id != lavagem.LavID)
             {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(lavagem);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!LavagemExists(lavagem.LavID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(lavagem);
         }
-
-        // GET: LavagemController/Delete/5
-        public ActionResult Delete(int id)
+        private bool LavagemExists(long? id)
         {
-            return View();
+            return _context.Lavagens.Any(e => e.LavID == id);
         }
 
-        // POST: LavagemController/Delete/5
-        [HttpPost]
+        //DETAILS
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            if (lavagem == null)
+            {
+                return NotFound();
+            }
+            return View(lavagem);
+        }
+
+        //DELETE
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            if (lavagem == null)
+            {
+                return NotFound();
+            }
+            return View(lavagem);
+        }
+
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(long? id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            _context.Lavagens.Remove(lavagem);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
+
     }
 }

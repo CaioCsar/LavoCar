@@ -54,14 +54,14 @@ namespace LavoCar.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DescTipoLav = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PrecoTipoLav = table.Column<int>(type: "int", nullable: false),
-                    LavagemLavID = table.Column<long>(type: "bigint", nullable: true)
+                    LavID = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TipoLavagens", x => x.TipoLavID);
                     table.ForeignKey(
-                        name: "FK_TipoLavagens_Lavagens_LavagemLavID",
-                        column: x => x.LavagemLavID,
+                        name: "FK_TipoLavagens_Lavagens_LavID",
+                        column: x => x.LavID,
                         principalTable: "Lavagens",
                         principalColumn: "LavID",
                         onDelete: ReferentialAction.Restrict);
@@ -213,9 +213,9 @@ namespace LavoCar.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TipoLavagens_LavagemLavID",
+                name: "IX_TipoLavagens_LavID",
                 table: "TipoLavagens",
-                column: "LavagemLavID");
+                column: "LavID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

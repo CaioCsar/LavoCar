@@ -38,6 +38,11 @@
             <span> @Html.DisplayFor(model => model.Lavagem.DataLav)</span>
         </div>
 
+        <div class="receipt-section">
+            <span class="receipt-label">Cod. de Veículo: </span>
+            <span> @Html.DisplayFor(model => model.Carro.CarroID)</span>
+        </div>
+
         <div class="receipt-section alinharmeio">
             <p>Recebi de LavoCar a importância de R$ @Html.DisplayFor(model => model.Lavagem.ValorLav) reais</p>
             <p class="antesDalinha ">Referente a meus serviços profissionais</p>

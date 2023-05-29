@@ -18,7 +18,7 @@
 
             <div class="pull-right receipt-section">
                 <span class="text-large receipt-label">R$</span>
-                <span class="text-large">@Html.DisplayFor(model => model.Lavagem.ValorLav)</span>
+                <span class="text-large">@Html.DisplayFor(model => model.Lavagem.ValorLav),00</span>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -43,8 +43,13 @@
             <span> @Html.DisplayFor(model => model.Carro.CarroID)</span>
         </div>
 
+        <div class="receipt-section">
+            <span class="receipt-label">Tipo de Lavagem: </span>
+            <span> @Html.DisplayFor(model => model.TipoLavagem.DescTipoLav)</span>
+        </div>
+
         <div class="receipt-section alinharmeio">
-            <p>Recebi de LavoCar a importância de R$ @Html.DisplayFor(model => model.Lavagem.ValorLav) reais</p>
+            <p>Recebi de LavoCar a importância de R$ @Html.DisplayFor(model => model.Lavagem.ValorLav),00 reais</p>
             <p class="antesDalinha ">Referente a meus serviços profissionais</p>
         </div>
 

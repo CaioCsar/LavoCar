@@ -73,7 +73,7 @@ namespace LavoCar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("CarroID, Placa, Ano, Modelo, Marca")] Carro carro)
+        public async Task<IActionResult> Edit(long? id, [Bind("CarroID, Placa, Ano, Modelo, Marca, ClienteID")] Carro carro)
         {
             if (id != carro.CarroID)
             {

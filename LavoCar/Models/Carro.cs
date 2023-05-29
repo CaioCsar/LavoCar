@@ -25,6 +25,7 @@ namespace LavoCar.Controllers
         public Cliente Cliente { get; set; }
 
         public virtual ICollection<Lavagem> Lavagens { get; set; }
+        public virtual ICollection<Recibo> Recibos { get; set; }
 
     }
 }

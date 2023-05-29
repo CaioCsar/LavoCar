@@ -25,5 +25,6 @@ namespace LavoCar.Models
         public string FoneCliente { get; set; }
 
         public virtual ICollection<Carro> Carros { get; set; }
+        public virtual ICollection<Recibo> Recibos { get; set; }
     }
 }

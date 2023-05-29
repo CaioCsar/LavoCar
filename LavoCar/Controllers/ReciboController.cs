@@ -80,7 +80,11 @@ namespace LavoCar.Controllers
             {
                 return NotFound();
             }
+            
+
             var recibo = await _context.Recibos.SingleOrDefaultAsync(m => m.ReciboID == id);
+
+
             if (recibo == null)
             {
                 return NotFound();
@@ -94,7 +98,7 @@ namespace LavoCar.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("NomeCliente, Modelo, DataLav, DescTipoLav, ReciboID ")] Recibo recibo)
+        public async Task<IActionResult> Edit(long? id, [Bind("ReciboID, ClienteID, CarroID, LavagemID, TipoLavagemID ")] Recibo recibo)
         {
             if (id != recibo.ReciboID)
             {
@@ -104,6 +108,7 @@ namespace LavoCar.Controllers
             {
                 try
                 {
+
                     _context.Update(recibo);
                     await _context.SaveChangesAsync();
                 }

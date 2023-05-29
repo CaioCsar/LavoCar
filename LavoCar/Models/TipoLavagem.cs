@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LavoCar.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,6 +18,6 @@ namespace LavoCar.Controllers
         [Display(Name = "Preço")]
         public int PrecoTipoLav { get; set; }
 
-
+        public virtual ICollection<Recibo> Recibos { get; set; }
     }
 }

@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.DataLav)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValorLav)
+                @Html.DisplayNameFor(model => model.tipoLavagem)
             </th>
             <th></th>
         </tr>
@@ -29,7 +29,7 @@
                 @Html.DisplayFor(modelItem => item.DataLav)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValorLav)
+                @Html.DisplayFor(modelItem => item.tipoLavagem.PrecoTipoLav)
             </td>
             <td>
 <a asp-action="Edit" asp-route-id="@item.LavID"><img class="ico" src="~/img/edit.webp" /></a> |

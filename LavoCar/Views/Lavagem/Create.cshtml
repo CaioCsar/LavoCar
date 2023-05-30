@@ -17,11 +17,13 @@
                 <input asp-for="DataLav" class="form-control" />
                 <span asp-validation-for="DataLav" class="text-danger"></span>
             </div>
+           
+           
             <div class="form-group">
-                <label asp-for="ValorLav" class="control-label"></label>
-                <input asp-for="ValorLav" class="form-control" />
-                <span asp-validation-for="ValorLav" class="text-danger"></span>
+                <label asp-for="LavID" class="control-label">Nome do Cliente</label>
+                <select asp-for="LavID" class="form-control" asp-items="@(new SelectList(ViewBag.Lavagens, "LavID", "PrecoTipoLav"))"></select>
             </div>
+            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-primary">Voltar</a>

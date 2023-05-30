@@ -1,6 +1,7 @@
 ﻿using LavoCar.Conexao;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,9 @@ namespace LavoCar.Controllers
         public ActionResult Create()
          
         {
+            var tipolavagem = _context.TipoLavagens.OrderBy(i => i.DescTipoLav).ToList();
+            tipolavagem.Insert(0, new TipoLavagem() { TipoLavID = 0, DescTipoLav = "Selecione um tipo de lavagem" });
+            ViewBag.TipoLavagem = tipolavagem;
             return View();
         }
 
@@ -68,26 +72,57 @@ namespace LavoCar.Controllers
         }
 
         // GET: LavagemController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(long? id)
         {
-       
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var lavagem = await _context.Lavagens.SingleOrDefaultAsync(m => m.LavID == id);
+            if (lavagem == null)
+            {
+                return NotFound();
+            }
+            ViewBag.TipoLavagem = new SelectList(_context.TipoLavagens.OrderBy(b => b.TipoLavID), "TipoLavID", "DescTipoLav");
+            return View(lavagem);
+            
         }
 
         // POST: LavagemController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+
+        //CONTINUAR FAZER AS AUTERÇÃO DO CONTROLE,DELETE
+        public async Task<ActionResult> Edit(long? id, [Bind("LavID, TipoLavagemID, DataLav")] Lavagem lavagem)
         {
-            try
+
+            if (id != .CarroID)
             {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(carro);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CarroExists(carro.CarroID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(carro);
         }
+    }
 
         // GET: LavagemController/Delete/5
         public ActionResult Delete(int id)

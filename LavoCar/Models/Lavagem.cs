@@ -17,10 +17,13 @@ namespace LavoCar.Controllers
 
         
         
-        [Display(Name = "Valor")]
-        public int ValorLav { get; set; }
         
-        public virtual ICollection<TipoLavagem> TipoLavagens { get; set; }
+       
+        
+        public long? TipoLavagemID { get; set; }
+
+        public  TipoLavagem tipoLavagem { get; set; }
+
         public virtual ICollection<Recibo> Recibos { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LavoCar.Conexao;
 using LavoCar.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,7 @@ namespace LavoCar.Controllers
         }
 
         // CREATE
+        [Authorize]
         public IActionResult Create()
         {
             var cliente = _context.Clientes.OrderBy(i => i.NomeCliente).ToList();
@@ -56,6 +58,7 @@ namespace LavoCar.Controllers
         }
 
         // EDIT
+        [Authorize]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -123,6 +126,7 @@ namespace LavoCar.Controllers
         }
 
         //DELETE
+        [Authorize]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)

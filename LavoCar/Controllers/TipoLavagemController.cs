@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LavoCar.Controllers {
     public class TipoLavagemController : Controller {
@@ -23,12 +24,9 @@ namespace LavoCar.Controllers {
         {
             return View(await _context.TipoLavagens.OrderBy(n => n.DescTipoLav).ToListAsync());
         }
-        // GET: TipoLavagemController/Details/5
-        public ActionResult Details(int id) {
-            return View();
-        }
 
         // GET: TipoLavagemController/Create
+        [Authorize]
         public IActionResult Create() {
             return View();
         }
@@ -36,7 +34,7 @@ namespace LavoCar.Controllers {
         // POST: TipoLavagemController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DescTipoLav", "PrecoTipoLav")] TipoLavagem tipoLavagem) {
+        public async Task<IActionResult> Create([Bind("DescTipoLav, PrecoTipoLav")] TipoLavagem tipoLavagem) {
             try {
                 if (ModelState.IsValid) {
                     _context.Add(tipoLavagem);
@@ -49,47 +47,100 @@ namespace LavoCar.Controllers {
             }
                 return View(tipoLavagem);
         }
-        
 
-        // GET: TipoLavagemController/Details/5
-        public ActionResult Details(long? id) {
-            return View();
+
+        //DETAILS
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
+            if (tipolavagem == null)
+            {
+                return NotFound();
+            }
+            return View(tipolavagem);
         }
 
 
 
-        // GET: TipoLavagemController/Edit/5
-        public ActionResult Edit(int id) {
-            return View();
+        // EDIT
+        [Authorize]
+        public async Task<IActionResult> Edit(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
+            if (tipolavagem == null)
+            {
+                return NotFound();
+            }
+            return View(tipolavagem);
         }
 
-        // POST: TipoLavagemController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
-            try {
+        public async Task<IActionResult> Edit(long? id, [Bind("DescTipoLav, PrecoTipoLav, TipoLavID")] TipoLavagem tipoLavagem)
+        {
+            if (id != tipoLavagem.TipoLavID)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(tipoLavagem);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TipoLavExists(tipoLavagem.TipoLavID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch {
-                return View();
+            return View(tipoLavagem);
+        }
+        private bool TipoLavExists(long? id)
+        {
+            return _context.TipoLavagens.Any(e => e.TipoLavID == id);
+        }
+
+        //DELETE
+        [Authorize]
+        public async Task<IActionResult> Delete(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
             }
+            var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
+            if (tipolavagem == null)
+            {
+                return NotFound();
+            }
+            return View(tipolavagem);
         }
 
-        // GET: TipoLavagemController/Delete/5
-        public ActionResult Delete(int id) {
-            return View();
-        }
-
-        // POST: TipoLavagemController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
-            try {
-                return RedirectToAction(nameof(Index));
-            }
-            catch {
-                return View();
-            }
+        public async Task<IActionResult> DeleteConfirmed(long? id)
+        {
+            var tipolavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
+            _context.TipoLavagens.Remove(tipolavagem);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

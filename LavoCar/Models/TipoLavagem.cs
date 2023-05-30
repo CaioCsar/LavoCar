@@ -19,5 +19,7 @@ namespace LavoCar.Controllers
         public int PrecoTipoLav { get; set; }
 
         public virtual ICollection<Recibo> Recibos { get; set; }
+
+        public virtual ICollection<Lavagem> Lavagems { get; set; }
     }
 }

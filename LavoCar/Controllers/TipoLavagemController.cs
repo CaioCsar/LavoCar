@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LavoCar.Controllers {
     public class TipoLavagemController : Controller {
@@ -23,8 +24,9 @@ namespace LavoCar.Controllers {
         {
             return View(await _context.TipoLavagens.OrderBy(n => n.DescTipoLav).ToListAsync());
         }
-        
+
         // GET: TipoLavagemController/Create
+        [Authorize]
         public IActionResult Create() {
             return View();
         }
@@ -65,6 +67,7 @@ namespace LavoCar.Controllers {
 
 
         // EDIT
+        [Authorize]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -115,6 +118,7 @@ namespace LavoCar.Controllers {
         }
 
         //DELETE
+        [Authorize]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)

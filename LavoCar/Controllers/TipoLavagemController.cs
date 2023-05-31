@@ -21,7 +21,10 @@ namespace LavoCar.Controllers {
         public async Task<IActionResult> Index() {
             return View(await _context.TipoLavagens.OrderBy(n => n.DescTipoLav).ToListAsync());
         }
-
+        // GET: TipoLavagemController/Details/5
+        public ActionResult Details(int id) {
+            return View();
+        }
 
         // GET: TipoLavagemController/Create
         public IActionResult Create() {
@@ -44,58 +47,30 @@ namespace LavoCar.Controllers {
             }
                 return View(tipoLavagem);
         }
-
+        
 
         // GET: TipoLavagemController/Details/5
-        public async Task<IActionResult> Details(long? id) {
-            if (id == null) {
-                return NotFound();
-            }
-            var tipoLavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
-            if (tipoLavagem == null) {
-                return NotFound();
-            }
-            return View(tipoLavagem);
+        public ActionResult Details(long id) {
+            return View();
         }
 
+
+
         // GET: TipoLavagemController/Edit/5
-        public async Task<IActionResult> Edit(long? id) {
-            if (id == null) {
-                return NotFound();
-            }
-            var tipoLavagem = await _context.TipoLavagens.SingleOrDefaultAsync(m => m.TipoLavID == id);
-            if (tipoLavagem == null) {
-                return NotFound();
-            }
-            return View(tipoLavagem);
+        public ActionResult Edit(int id) {
+            return View();
         }
 
         // POST: TipoLavagemController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("TipoLavID, DescTipoLav, PrecoTipoLav")] TipoLavagem tipoLavagem) {
-            if (id != tipoLavagem.TipoLavID) {
-                return NotFound();
-            }
-            if (ModelState.IsValid) {
-                try {
-                    _context.Update(tipoLavagem);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException) {
-                    if (!TipoLavagemExists(tipoLavagem.TipoLavID)) {
-                        return NotFound();
-                    }
-                    else {
-                        throw;
-                    }
-                }
+        public ActionResult Edit(int id, IFormCollection collection) {
+            try {
                 return RedirectToAction(nameof(Index));
             }
-                return View(tipoLavagem);
-        }
-        private bool TipoLavagemExists(long? id) {
-            return _context.TipoLavagens.Any(e=>e.TipoLavID==id);
+            catch {
+                return View();
+            }
         }
 
         // GET: TipoLavagemController/Delete/5
